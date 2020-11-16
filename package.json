@@ -1,0 +1,49 @@
+{
+	"name": "@statscell/coc.js",
+	"version": "0.1.0",
+	"description": "Clash of clans wrapper for basic usage and tracking!",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"private": false,
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint src --ext ts --fix",
+		"build": "tsc -b src",
+		"clean": "tsc -b src --clean"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Statscell/coc.js.git"
+	},
+	"keywords": [
+		"clashofclans",
+		"coc",
+		"clash of clans"
+	],
+	"author": "Santosh Bhandari <contact@santoshb.com.np>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Statscell/coc.js/issues"
+	},
+	"homepage": "https://github.com/Statscell/coc.js#readme",
+	"dependencies": {
+		"cron": "^1.8.2",
+		"node-fetch": "^2.6.1"
+	},
+	"files": [
+		"dist",
+		"!dist/tsconfig.tsbuildinfo"
+	],
+	"engines": {
+		"node": ">=12",
+		"npm": ">=6"
+	},
+	"devDependencies": {
+		"@skyra/eslint-config": "^5.3.3",
+		"@types/cron": "^1.7.2",
+		"@types/node": "^14.14.7",
+		"@types/node-fetch": "^2.5.7",
+		"eslint": "^7.13.0",
+		"typescript": "^4.0.5"
+	}
+}
