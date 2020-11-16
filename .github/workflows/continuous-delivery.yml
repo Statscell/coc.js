@@ -53,8 +53,6 @@ jobs:
                   rm -rfv out/dist/*
                   echo -e "\n# Move the generated docs to the newly-checked-out repo, to be committed and pushed"
                   rsync -vaI package.json out/
-                  rsync -vaI LICENSE.md out/
-                  rsync -vaI README.md out/
                   rsync -vaI dist/ out/dist
                   echo -e "\n# Removing TSC incremental file"
                   rm -rfv out/dist/**/*.tsbuildinfo
