@@ -3,7 +3,7 @@ import { validateTag } from '../utils/utils';
 import { Player, Clan } from './Client';
 import { EventEmitter } from 'events';
 import { CronJob } from 'cron';
-import fetch from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 
 export class Tracker extends EventEmitter {
 
@@ -15,6 +15,7 @@ export class Tracker extends EventEmitter {
 	private playerList: string[] = [];
 	private clanList: string[] = [];
 	private activeToken = 0;
+	private inMaintenance = false;
 
 	private clanData = new Map();
 	private playerData = new Map();
@@ -97,9 +98,22 @@ export class Tracker extends EventEmitter {
 		return this.clanList;
 	}
 
+	private handleMaintenance(res: Response) {
+		if (!this.inMaintenance && res.status === 503 && this.events.includes('MAINTENANCE_START')) {
+			this.emit('maintenanceStart');
+			this.inMaintenance = true;
+		}
+		if (this.inMaintenance && res.status !== 503 && this.events.includes('MAINTENANCE_END')) {
+			this.emit('maintenanceEnd');
+			this.inMaintenance = false;
+		}
+		return res;
+	}
+
 	private async trackPlayers() {
 		for (const player of this.playerList) {
 			const newData: Player = await fetch(`${this.apiUrl}players/%23${player}`, { headers: { Authorization: `Bearer ${this.token}` } })
+				.then(res => this.handleMaintenance(res))
 				.then(res => res.json());
 			const oldData: Player = this.playerData.get(player);
 			if (oldData) handlePlayerChanges(this, oldData, newData);
@@ -110,6 +124,7 @@ export class Tracker extends EventEmitter {
 	private async trackClans() {
 		for (const clan of this.clanList) {
 			const newData: Clan = await fetch(`${this.apiUrl}clans/%23${clan}`, { headers: { Authorization: `Bearer ${this.token}` } })
+				.then(res => this.handleMaintenance(res))
 				.then(res => res.json());
 			const oldData: Clan = this.clanData.get(clan);
 			if (oldData) handleClanChanges(this, oldData, newData);
@@ -132,11 +147,8 @@ export interface TrackerOptions {
 	refreshRate?: string;
 }
 
-export type event = playerEvent | clanEvent;
+export type event = playerEvent | clanEvent | clientEvent;
 
 type playerEvent = 'PLAYER_UPDATE' | 'PLAYER_TROOP_UPDATE' | 'PLAYER_ACHIEVEMENT_UPDATE';
 type clanEvent = 'CLAN_UPDATE';
-/*
-type warEvent = 'WAR_STATE_UPDATE' | 'WAR_ATTACK';
 type clientEvent = 'MAINTENANCE_START' | 'MAINTENANCE_END';
-*/
