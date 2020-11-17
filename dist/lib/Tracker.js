@@ -15,6 +15,7 @@ class Tracker extends events_2.EventEmitter {
         this.playerList = [];
         this.clanList = [];
         this.activeToken = 0;
+        this.inMaintenance = false;
         this.clanData = new Map();
         this.playerData = new Map();
         this.tokens = options.tokens;
@@ -88,9 +89,21 @@ class Tracker extends events_2.EventEmitter {
     get clans() {
         return this.clanList;
     }
+    handleMaintenance(res) {
+        if (!this.inMaintenance && res.status === 503 && this.events.includes('MAINTENANCE_START')) {
+            this.emit('maintenanceStart');
+            this.inMaintenance = true;
+        }
+        if (this.inMaintenance && res.status !== 503 && this.events.includes('MAINTENANCE_END')) {
+            this.emit('maintenanceEnd');
+            this.inMaintenance = false;
+        }
+        return res;
+    }
     async trackPlayers() {
         for (const player of this.playerList) {
             const newData = await node_fetch_1.default(`${this.apiUrl}players/%23${player}`, { headers: { Authorization: `Bearer ${this.token}` } })
+                .then(res => this.handleMaintenance(res))
                 .then(res => res.json());
             const oldData = this.playerData.get(player);
             if (oldData)
@@ -101,6 +114,7 @@ class Tracker extends events_2.EventEmitter {
     async trackClans() {
         for (const clan of this.clanList) {
             const newData = await node_fetch_1.default(`${this.apiUrl}clans/%23${clan}`, { headers: { Authorization: `Bearer ${this.token}` } })
+                .then(res => this.handleMaintenance(res))
                 .then(res => res.json());
             const oldData = this.clanData.get(clan);
             if (oldData)

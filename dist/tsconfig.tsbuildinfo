@@ -477,8 +477,8 @@
         "affectsGlobalScope": false
       },
       "../src/lib/Tracker.ts": {
-        "version": "43456c986bb3a725df312231b651aac0efb72404c67d638f4995404f464b2c61",
-        "signature": "4295788013b79e88c2b463ce5bfc61ccf5f294d6116d6b38b3acf7986aee2aca",
+        "version": "1073274d029dbc8036c2e5892d0bb6696cd0d9d72cdba42f7e498fbf3f431490",
+        "signature": "e13e7e7b4db4accc3959095e569499a6594d503002b370627d70b9c2c86b3b01",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {

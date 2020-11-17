@@ -8,6 +8,7 @@ export declare class Tracker extends EventEmitter {
     private playerList;
     private clanList;
     private activeToken;
+    private inMaintenance;
     private clanData;
     private playerData;
     constructor(options: TrackerOptions);
@@ -19,6 +20,7 @@ export declare class Tracker extends EventEmitter {
     start(): void;
     get players(): string[];
     get clans(): string[];
+    private handleMaintenance;
     private trackPlayers;
     private trackClans;
     private get token();
@@ -29,7 +31,8 @@ export interface TrackerOptions {
     apiUrl?: string;
     refreshRate?: string;
 }
-export declare type event = playerEvent | clanEvent;
+export declare type event = playerEvent | clanEvent | clientEvent;
 declare type playerEvent = 'PLAYER_UPDATE' | 'PLAYER_TROOP_UPDATE' | 'PLAYER_ACHIEVEMENT_UPDATE';
 declare type clanEvent = 'CLAN_UPDATE';
+declare type clientEvent = 'MAINTENANCE_START' | 'MAINTENANCE_END';
 export {};
