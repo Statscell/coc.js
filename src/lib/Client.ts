@@ -201,7 +201,7 @@ export interface Player {
 		completionInfo: string | null;
 		village: 'home' | 'builderBase';
 	}];
-	labels: [{
+	labels?: [{
 		id: number;
 		name: string;
 		iconUrls: {
@@ -262,7 +262,7 @@ export interface Clan {
 		id: number;
 	};
 	members: number;
-	labels: [{
+	labels?: [{
 		id: number;
 		name: string;
 		iconUrls: {
