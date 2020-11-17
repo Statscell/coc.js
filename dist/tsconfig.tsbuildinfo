@@ -457,12 +457,12 @@
         "affectsGlobalScope": false
       },
       "../src/lib/Client.ts": {
-        "version": "a390059ee47b11232ed9fe51557b8c34cb98173cefd1f8db28416526852168fb",
-        "signature": "726246e3256b43a62009b3b4c76718dfb03418d8ea4027f064a14898527b3f20",
+        "version": "1b08983011fc3c653d9473949979f7a513689d89bd5f65d029ae166e45b556f1",
+        "signature": "9357b33eca97c593cc20aaaa60e47c066e85b8e7adc51c6b4166b4fb39772846",
         "affectsGlobalScope": false
       },
       "../src/utils/events.ts": {
-        "version": "c46c61e02d5aaa5a2bbc558e7f82c75f3029ca15fdf1e50d8addee86f0f59e5c",
+        "version": "8db2e064c26d36d8be8aefa525b5b19777244225c905d5e2f8aa1bc2ef4af0cf",
         "signature": "345f212bac0a466cbb59b233481a40d9078e00225623b9571ce776e877c572f7",
         "affectsGlobalScope": false
       },

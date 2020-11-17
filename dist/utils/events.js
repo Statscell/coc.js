@@ -96,8 +96,8 @@ function handlePlayerChanges(client, oldData, newData) {
             previous.league = oldData.league;
             current.league = newData.league;
         }
-        const oldLabels = oldData.labels.map(lb => lb.id).sort();
-        const newLabels = newData.labels.map(lb => lb.id).sort();
+        const oldLabels = oldData.labels ? oldData.labels.map(lb => lb.id).sort() : null;
+        const newLabels = newData.labels ? newData.labels.map(lb => lb.id).sort() : null;
         if (newLabels !== oldLabels) {
             keys.push('labels');
             previous.labels = oldData.labels;
@@ -255,8 +255,8 @@ function handleClanChanges(client, oldData, newData) {
             previous.members = oldData.members;
             current.members = newData.members;
         }
-        const oldLabels = oldData.labels.map(lb => lb.id).sort();
-        const newLabels = newData.labels.map(lb => lb.id).sort();
+        const oldLabels = oldData.labels ? oldData.labels.map(lb => lb.id).sort() : null;
+        const newLabels = newData.labels ? newData.labels.map(lb => lb.id).sort() : null;
         if (newLabels !== oldLabels) {
             keys.push('labels');
             previous.labels = oldData.labels;

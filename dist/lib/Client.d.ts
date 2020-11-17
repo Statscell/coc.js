@@ -97,7 +97,7 @@ export interface Player {
             village: 'home' | 'builderBase';
         }
     ];
-    labels: [
+    labels?: [
         {
             id: number;
             name: string;
@@ -165,7 +165,7 @@ export interface Clan {
         id: number;
     };
     members: number;
-    labels: [
+    labels?: [
         {
             id: number;
             name: string;
